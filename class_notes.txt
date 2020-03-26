@@ -1,0 +1,6 @@
+1- o que quer que o projeto faça
+2- entidade e funcionalidades da aplicação para guiar as rotas e funções
+3- backend (express), frontend (react), mobile (react native)
+3- banco de dados - (sql, knex)
+4- fazer as tabelas usando migrations
+5- rotas para as funções
