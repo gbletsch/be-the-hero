@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import logoImg from '../../assets/logo.svg'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { FiPower, FiTrash2 } from 'react-icons/fi'
 import './styles.css'
 
@@ -11,6 +11,9 @@ export default function Profile () {
 
   const ongId = window.localStorage.getItem('ongId')
   const ongName = window.localStorage.getItem('ongName')
+
+  const history = useHistory()
+
   useEffect(() => {
     api.get('sessions', {
       headers: {
@@ -35,6 +38,11 @@ export default function Profile () {
     }
   }
 
+  function handleLogout () {
+    window.localStorage.clear()
+    history.push('/')
+  }
+
   return (
     <div className='profile-container'>
       <header>
@@ -42,7 +50,7 @@ export default function Profile () {
         <span>Bem vinda, {ongName}</span>
 
         <Link className='button' to='/incidents/new'>Cadastrar novo caso</Link>
-        <button type='button'>
+        <button onClick={handleLogout} type='button'>
           <FiPower size={18} color='#e02041' />
         </button>
       </header>

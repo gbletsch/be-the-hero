@@ -14,7 +14,6 @@ export default function Logon () {
 
   async function handleLogin (e) {
     e.preventDefault()
-    console.log('aqui')
     try {
       const response = await api.post('sessions', { id })
       window.localStorage.setItem('ongId', id)
