@@ -14,7 +14,7 @@ export default function NewIncident () {
 
   async function handleSubmit (e) {
     e.preventDefault()
-    const data =  {
+    const data = {
       title,
       description,
       value

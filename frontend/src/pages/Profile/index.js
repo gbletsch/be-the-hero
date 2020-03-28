@@ -27,7 +27,7 @@ export default function Profile () {
 
   async function handleDeleteIncident (id) {
     try {
-      await api.delete(`incidents/${id}`,{
+      await api.delete(`incidents/${id}`, {
         headers: {
           Authorization: ongId
         }
@@ -54,7 +54,7 @@ export default function Profile () {
           <FiPower size={18} color='#e02041' />
         </button>
       </header>
- 
+
       <h1>Casos cadastrados</h1>
 
       <ul>
