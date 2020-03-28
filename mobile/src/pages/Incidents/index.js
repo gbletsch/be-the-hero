@@ -10,6 +10,9 @@ import styles from './styles'
 const Incidents = () => {
   const [incidents, setIncidents] = useState([])
   const [total, setTotal] = useState([])
+  const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(false)
+
   const navigation = useNavigation()
 
   const navigateToDetail = (incident) => {
@@ -17,13 +20,24 @@ const Incidents = () => {
   }
 
   const loadIncidents = async () => {
-    try {
-      const response = await api.get('incidents')
-      setIncidents(response.data)
-      setTotal(response.headers['x-total-count'])
-    } catch (error) {
-      window.alert('Problemas ao acessar banco de dados.')
+    if (loading) {
+      return
     }
+
+    if (total > 0 && incidents.length === total) {
+      return
+    }
+
+    setLoading(true)
+
+    const response = await api.get('incidents', {
+      params: { page }
+    })
+    setIncidents([...incidents, ...response.data])
+    setTotal(response.headers['x-total-count'])
+
+    setPage(page + 1)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -47,6 +61,8 @@ const Incidents = () => {
         data={incidents}
         keyExtractor={incident => String(incident.id)}
         showsVerticalScrollIndicator={false}
+        onEndReached={loadIncidents}
+        onEndReachedThreshold={0.2}
         renderItem={({ item: incident }) => (
           <View style={styles.incident}>
             <Text style={styles.incidentProperty}>ONG:</Text>
